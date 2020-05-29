@@ -1,32 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux'
-import {
-  BrowserRouter as Router
-} from 'react-router-dom'
-import { renderRoutes } from 'react-router-config'
 import './index.css';
-
-import routes from './routes/index'
-import { store } from './store/index'
 import * as serviceWorker from './serviceWorker';
 
-import App from './App.jsx'
-
-store.subscribe(() => {
-  console.log('state', store.getState())
-})
+import createApp from './create-app'
 
 ReactDOM.render(
-  <Router>
-    <Provider store={ store }>
-      <React.StrictMode>
-        <App>
-          { renderRoutes(routes) }
-        </App>
-      </React.StrictMode>
-    </Provider>
-  </Router>,
+  createApp(),
   document.getElementById('root')
 );
 

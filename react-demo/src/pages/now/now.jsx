@@ -355,12 +355,8 @@ function nowRender(props) {
 
 class Now extends Component{
   static asyncData() {
-    // return this.props.fetchNowWeather()
     return dispatch(fetchNowWeather())
   }
-  // componentDidMount() {
-  //   this.props.fetchNowWeather()
-  // }
   render(){
     return nowRender(this.props)
   }
