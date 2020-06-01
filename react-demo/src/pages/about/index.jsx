@@ -6,6 +6,7 @@ const CurrentPath = withRouter(function CurrentPath(props) {
 })
 
 export default function(props) {
+  console.log('about component mounted')
   return (
     <>
       <CurrentPath></CurrentPath>

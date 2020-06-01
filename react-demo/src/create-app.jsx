@@ -12,7 +12,7 @@ import { generateStore } from './store/index'
 
 let firstMounted = false // 是否首次挂载
 const isClient = typeof window !== 'undefined' // 在浏览器
-const isSSR = !!process.env.REACT_APP_SERVER_RENDER // 在服务端
+const isSSR = !!process.env.REACT_APP_SERVER_RENDER // 服务端渲染
 // const isDev = !!process.env.REACT_APP_DEVELOPMENT // 开发环境
 const isProd = !!process.env.REACT_APP_PRODUCTION // 生产环境
 
@@ -28,9 +28,10 @@ function hleAsyncData(store, path) {
   })
 }
 
-const wrapApp = (store) => withRouter(function App(props){
+const geneApp = (store) => withRouter(function App(props){
   const jsx = <>{ props.children }</>
-  // 生产模式下第一次挂载
+  // 服务端渲染的时候，组件的 asyncData 方法全部在外面完成
+  // 在生产环境中，第一次挂载的时候，state 已经存在于 window.__INITIAL__STATE__中，所以不需要再处理 asyncData
   if ((isProd && !firstMounted) || isSSR) {
     firstMounted = true
     return jsx
@@ -40,7 +41,7 @@ const wrapApp = (store) => withRouter(function App(props){
 })
 
 const wrapStore = store => {
-  const App = wrapApp(store)
+  const App = geneApp(store)
   return <Provider store={ store }>
     <React.StrictMode>
       <App>
