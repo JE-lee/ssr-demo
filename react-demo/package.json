@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "koa": "^2.12.0",
+    "koa-static": "^5.0.0",
     "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -25,11 +26,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env REACT_APP_DEVELOPMENT=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "ssr": "babel-node ./src/server.js"
+    "ssr-build": "cross-env REACT_APP_PRODUCTION=true react-scripts build",
+    "ssr": "cross-env REACT_APP_SERVER_RENDER=true babel-node ./src/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,5 +47,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }

@@ -1,14 +1,22 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
-import createApp from './create-app'
+import { createClientApp } from './create-app'
 
-ReactDOM.render(
-  createApp(),
-  document.getElementById('root')
-);
+// 如果有 winodw.__INITIAL__STATE__, 就是用 hydrate 挂载
+if (window.__INITIAL__STATE__) {
+  console.log('hydrate')
+ ReactDOM.hydrate(
+  createClientApp(),
+   document.getElementById('root')
+ )
+}else {
+  ReactDOM.render(
+    createClientApp(),
+    document.getElementById('root')
+  )
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

@@ -22,6 +22,7 @@ export function fetchNowWeather() {
         type: FETCHED_NOW_WEATHER,
         ...res.HeWeather6[0]
       })
+      return res
     })
   }
 }

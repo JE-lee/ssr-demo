@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { dispatch } from '../../store/index'
 import { fetchNowWeather } from "../../store/now-weather";
 
 function nowRender(props) {
@@ -354,8 +353,11 @@ function nowRender(props) {
 
 
 class Now extends Component{
-  static asyncData() {
-    return dispatch(fetchNowWeather())
+  static asyncData(store) {
+    return store.dispatch(fetchNowWeather())
+  }
+  componentDidMount(){
+    console.log('now mounted', this.props)
   }
   render(){
     return nowRender(this.props)
@@ -363,8 +365,5 @@ class Now extends Component{
 }
 
 export default connect(
-  (state) => ({ ...state }),
-  (dispatch) => ({ 
-    fetchNowWeather: () => dispatch(fetchNowWeather())
-  })
+  (state) => ({ ...state })
 )(Now);
